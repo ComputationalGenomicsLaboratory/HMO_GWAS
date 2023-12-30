@@ -6,7 +6,7 @@
 
 
 #set your path in the HPC cluster 
-setwd("/global/home/hpc4094/analysis/HMO/GWAS/all_HMOs")
+setwd("/global/home/hpcxxxx/analysis/HMO/GWAS/all_HMOs")
 
 #load your libraries
 library(dplyr)
@@ -16,7 +16,7 @@ library(qqman)
 
 
 #Plotting in loop
-files <- list.files(path="/global/home/hpc4094/analysis/HMO/GWAS/all_HMOs", pattern=".assoc.linear", full.names = F, recursive = F)
+files <- list.files(path="/global/home/hpcxxxx/analysis/HMO/GWAS/all_HMOs", pattern=".assoc.linear", full.names = F, recursive = F)
 
 
 for (i in 1:length(files)){
