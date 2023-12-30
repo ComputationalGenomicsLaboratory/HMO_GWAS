@@ -1,0 +1,60 @@
+#################################################################################################################
+##### EasyStrata-script to create a Manhattan plot with and without broken up y-axis
+##### Winkler et al - EasyStrata - Suplpementary Figure 7
+##### EasyStrata version: 8.5
+##### Programmer: Thomas Winkler, 2014-04-14
+##### Contact: thomas.winkler@klinik.uni-regensburg.de
+#################################################################################################################
+
+DEFINE	--pathOut /global/home/hpc4094/analysis/HMO/GWAS/multi_GWAS/overlay_easystrata
+	  	--strMissing .
+		  --acolIn SNP;P;CHR;BP
+		  --acolInClasses character;numeric;numeric;numeric
+      
+
+EASYIN	--fileIn /global/home/hpc4094/analysis/HMO/GWAS/multi_GWAS/overlay_easystrata/all_hmo_new_file.txt
+        --strSeparator WHITESPACE 
+
+#EASYIN --fileIn /global/home/hpc4094/analysis/HMO/GWAS/multi_GWAS/all_HMOs_multi.INT_2FL.assoc.linear
+       --fileInTag 2FL
+       
+
+
+
+#################################################################################################################
+#################################################################################################################
+## EASYSTRATA Scripting interface:
+START EASYSTRATA
+
+
+###MERGE
+
+
+#MERGEEASYIN --colInMarker SNP 
+
+#RENAMECOL --colInRename SNP.all
+          #--colOutRename SNP
+
+MERGE 	--colInMarker SNP
+		--fileRef /global/home/hpc4094/analysis/HMO/GWAS/multi_GWAS/overlay_easystrata/mothers_only_common_variants_all.bim
+		--colRefMarker SNPID
+		--blnInAll 0
+		--blnRefAll 0
+    --strInSuffix .in
+
+            
+
+### Manhattan plot with break (rescaled y-axis)
+MHPLOT 	--colMHPlot P.in
+		--colInChr Chromosome
+		--colInPos BP.in
+		--numPvalOffset 0.05
+		--blnYAxisBreak 1
+  --fileAnnot File_annotation_genes.txt
+  --numPvalOffset 0.05
+  --astrDefaultColourChr violetred;steelblue
+		
+STOP EASYSTRATA
+
+#################################################################################################################
+#################################################################################################################
